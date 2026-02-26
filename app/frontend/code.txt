@@ -80,3 +80,14 @@ const App = () => {
 
 export default App;
 
+# React Native
+import { Icon } from 'lucide-react-native';
+import { atSignCircle } from '@lucide/lab';
+
+const App = () => {
+  return (
+    <Icon iconNode={atSignCircle} />
+  );
+};
+
+export default App;
