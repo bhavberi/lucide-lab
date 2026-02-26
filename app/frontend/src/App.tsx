@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, Fragment } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Moon, Sun, Copy, Check, X, ChevronDown, Filter, Code } from 'lucide-react';
+import { Search, Moon, Sun, Copy, Check, X, ChevronDown, Filter, Code, MonitorDown } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -318,12 +318,16 @@ export default function App() {
         <div className="mb-8">
           <div className="px-6 py-6 rounded-2xl border border-border-color bg-bg-primary mb-4">
             <div className="flex items-center gap-3">
-              <Code size={20} />
+              <MonitorDown size={20} />
               <h2 className="text-lg font-semibold">Installation</h2>
             </div>
             <p className="text-sm text-secondary mt-2">
               Install the package using your preferred package manager. The Lucide core package is
-              required in your project (for more information, see the <a href="https://lucide.dev/guide/installation" className="text-accent-color hover:underline">
+              required in your project (for more information, see the{' '}
+              <a
+                href="https://lucide.dev/guide/installation"
+                className="text-accent-color hover:underline"
+              >
                 Lucide installation guide
               </a>
               ).
@@ -338,7 +342,10 @@ export default function App() {
                   onClick={async () => {
                     try {
                       await navigator.clipboard.writeText('npm install @lucide/lab');
-                      setToast({ message: 'npm install @lucide/lab copied', title: 'Installation Command Copied' });
+                      setToast({
+                        message: 'npm install @lucide/lab copied',
+                        title: 'Installation Command Copied',
+                      });
                     } catch (err) {
                       console.error(err);
                       setToast({ message: 'npm (copy failed)', title: 'Copy Error' });
@@ -359,7 +366,10 @@ export default function App() {
                   onClick={async () => {
                     try {
                       await navigator.clipboard.writeText('yarn add @lucide/lab');
-                      setToast({ message: 'yarn add @lucide/lab copied', title: 'Installation CommandCopied' });
+                      setToast({
+                        message: 'yarn add @lucide/lab copied',
+                        title: 'Installation CommandCopied',
+                      });
                     } catch (err) {
                       console.error(err);
                       setToast({ message: 'yarn (copy failed)', title: 'Copy Error' });
@@ -380,7 +390,10 @@ export default function App() {
                   onClick={async () => {
                     try {
                       await navigator.clipboard.writeText('pnpm add @lucide/lab');
-                      setToast({ message: 'pnpm add @lucide/lab copied', title: 'Installation Command Copied' });
+                      setToast({
+                        message: 'pnpm add @lucide/lab copied',
+                        title: 'Installation Command Copied',
+                      });
                     } catch (err) {
                       console.error(err);
                       setToast({ message: 'pnpm (copy failed)', title: 'Copy Error' });
@@ -398,7 +411,7 @@ export default function App() {
 
         {/* How to use + Code examples */}
         <div className="mb-8">
-          <div className="px-6 py-6 rounded-2xl border border-border-color bg-bg-primary mb-4">
+          <div className="px-6 py-6 rounded-2xl border border-border-color bg-bg-primary">
             <div className="flex items-center gap-3">
               <Code size={20} />
               <h2 className="text-lg font-semibold">How to use</h2>
@@ -407,56 +420,56 @@ export default function App() {
               Use the snippets below to quickly import and use Lucide Lab icons in your project.
               Select a framework tab to see the example and copy it to your clipboard.
             </p>
-          </div>
 
-          <div className="relative rounded-2xl border border-border-color bg-secondary overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-2 border-b border-border-color">
-              <div className="flex gap-2 overflow-x-auto">
-                {snippets.map((s) => (
+            <div className="relative rounded-2xl border border-border-color bg-secondary overflow-hidden mt-4">
+              <div className="flex items-center justify-between px-4 py-2 border-b border-border-color">
+                <div className="flex gap-2 overflow-x-auto">
+                  {snippets.map((s) => (
+                    <button
+                      key={s.name}
+                      onClick={() => setSelectedSnippet(s.name)}
+                      className={cn(
+                        'px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap',
+                        selectedSnippet === s.name
+                          ? 'bg-accent-color text-white shadow-sm'
+                          : 'text-secondary hover:text-primary'
+                      )}
+                    >
+                      {s.name}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2">
                   <button
-                    key={s.name}
-                    onClick={() => setSelectedSnippet(s.name)}
-                    className={cn(
-                      'px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap',
-                      selectedSnippet === s.name
-                        ? 'bg-accent-color text-white shadow-sm'
-                        : 'text-secondary hover:text-primary'
-                    )}
+                    onClick={async () => {
+                      const active = snippets.find((x) => x.name === selectedSnippet);
+                      if (!active) return;
+                      try {
+                        await navigator.clipboard.writeText(active.code);
+                        setToast({ message: `${active.name} snippet copied`, title: 'Copied' });
+                      } catch (err) {
+                        console.error('Copy failed', err);
+                        setToast({
+                          message: `${active.name} snippet (copy failed)`,
+                          title: 'Copy Error',
+                        });
+                      }
+                      setTimeout(() => setToast(null), 2200);
+                    }}
+                    className="px-4 py-2 rounded-md bg-bg-primary border border-border-color text-secondary hover:text-primary transition-colors flex items-center gap-2"
+                    aria-label="Copy code"
                   >
-                    {s.name}
+                    <Copy size={16} /> Copy
                   </button>
-                ))}
+                </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={async () => {
-                    const active = snippets.find((x) => x.name === selectedSnippet);
-                    if (!active) return;
-                    try {
-                      await navigator.clipboard.writeText(active.code);
-                      setToast({ message: `${active.name} snippet copied`, title: 'Copied' });
-                    } catch (err) {
-                      console.error('Copy failed', err);
-                      setToast({
-                        message: `${active.name} snippet (copy failed)`,
-                        title: 'Copy Error',
-                      });
-                    }
-                    setTimeout(() => setToast(null), 2200);
-                  }}
-                  className="px-4 py-2 rounded-md bg-bg-primary border border-border-color text-secondary hover:text-primary transition-colors flex items-center gap-2"
-                  aria-label="Copy code"
-                >
-                  <Copy size={16} /> Copy
-                </button>
+              <div className="p-4">
+                <pre className="whitespace-pre-wrap max-h-64 overflow-auto text-sm font-mono text-secondary">
+                  {snippets.find((x) => x.name === selectedSnippet)?.code || ''}
+                </pre>
               </div>
-            </div>
-
-            <div className="p-4">
-              <pre className="whitespace-pre-wrap max-h-64 overflow-auto text-sm font-mono text-secondary">
-                {snippets.find((x) => x.name === selectedSnippet)?.code || ''}
-              </pre>
             </div>
           </div>
         </div>
