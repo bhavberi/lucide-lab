@@ -314,6 +314,88 @@ export default function App() {
           </p>
         </div>
 
+        {/* Installation */}
+        <div className="mb-8">
+          <div className="px-6 py-6 rounded-2xl border border-border-color bg-bg-primary mb-4">
+            <div className="flex items-center gap-3">
+              <Code size={20} />
+              <h2 className="text-lg font-semibold">Installation</h2>
+            </div>
+            <p className="text-sm text-secondary mt-2">
+              Install the package using your preferred package manager. The Lucide core package is
+              required in your project (for more information, see the <a href="https://lucide.dev/guide/installation" className="text-accent-color hover:underline">
+                Lucide installation guide
+              </a>
+              ).
+            </p>
+
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="flex items-center justify-between gap-4 px-4 py-3 bg-bg-primary border border-border-color rounded-md">
+                <pre className="whitespace-pre-wrap text-sm font-mono text-secondary m-0">
+                  npm install @lucide/lab
+                </pre>
+                <button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText('npm install @lucide/lab');
+                      setToast({ message: 'npm install @lucide/lab copied', title: 'Installation Command Copied' });
+                    } catch (err) {
+                      console.error(err);
+                      setToast({ message: 'npm (copy failed)', title: 'Copy Error' });
+                    }
+                    setTimeout(() => setToast(null), 2200);
+                  }}
+                  className="px-4 py-2 rounded-md bg-bg-primary border border-border-color text-secondary hover:text-primary transition-colors"
+                >
+                  Copy
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between gap-4 px-4 py-3 bg-bg-primary border border-border-color rounded-md">
+                <pre className="whitespace-pre-wrap text-sm font-mono text-secondary m-0">
+                  yarn add @lucide/lab
+                </pre>
+                <button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText('yarn add @lucide/lab');
+                      setToast({ message: 'yarn add @lucide/lab copied', title: 'Installation CommandCopied' });
+                    } catch (err) {
+                      console.error(err);
+                      setToast({ message: 'yarn (copy failed)', title: 'Copy Error' });
+                    }
+                    setTimeout(() => setToast(null), 2200);
+                  }}
+                  className="px-4 py-2 rounded-md bg-bg-primary border border-border-color text-secondary hover:text-primary transition-colors"
+                >
+                  Copy
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between gap-4 px-4 py-3 bg-bg-primary border border-border-color rounded-md">
+                <pre className="whitespace-pre-wrap text-sm font-mono text-secondary m-0">
+                  pnpm add @lucide/lab
+                </pre>
+                <button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText('pnpm add @lucide/lab');
+                      setToast({ message: 'pnpm add @lucide/lab copied', title: 'Installation Command Copied' });
+                    } catch (err) {
+                      console.error(err);
+                      setToast({ message: 'pnpm (copy failed)', title: 'Copy Error' });
+                    }
+                    setTimeout(() => setToast(null), 2200);
+                  }}
+                  className="px-4 py-2 rounded-md bg-bg-primary border border-border-color text-secondary hover:text-primary transition-colors"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* How to use + Code examples */}
         <div className="mb-8">
           <div className="px-6 py-6 rounded-2xl border border-border-color bg-bg-primary mb-4">

@@ -168,6 +168,8 @@ input {
 .mb-16 { margin-bottom: 4rem; }
 .mx-auto { margin-left: auto; margin-right: auto; }
 .mx-8 { margin-left: 2rem; margin-right: 2rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
 .mt-12 { margin-top: 3rem; }
 
 .bg-bg-primary { background-color: var(--bg-primary); }
