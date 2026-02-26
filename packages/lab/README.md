@@ -48,6 +48,23 @@ import { Icon } from 'lucide-vue-next';
 </template>
 ```
 
+### Angular
+
+```angular
+// app.module.ts
+import { LucideAngularModule } from 'lucide-angular';
+import { atSignCircle } from '@lucide/lab';
+
+@NgModule({
+  imports: [
+      LucideAngularModule.pick({ AtSignCircle: atSignCircle })
+  ],
+})
+
+// app.component.html
+<lucide-icon name = "AtSignCircle" > </lucide-icon>
+```
+
 ### Svelte
 
 ```svelte
