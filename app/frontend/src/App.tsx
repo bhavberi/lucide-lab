@@ -1,16 +1,6 @@
 import React, { useState, useEffect, useMemo, Fragment } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Search,
-  Moon,
-  Sun,
-  Copy,
-  Check,
-  X,
-  ChevronDown,
-  Filter,
-  Code,
-} from 'lucide-react';
+import { Search, Moon, Sun, Copy, Check, X, ChevronDown, Filter, Code } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -280,10 +270,15 @@ export default function App() {
       <header className="sticky top-0 z-50 glass border-b border-border-color">
         <div className="container h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Lucide Lab Logo" className="w-8 h-8 object-contain" />
-            <span className="text-xl font-bold font-display tracking-tight hidden sm:block">
-              Lucide Lab
-            </span>
+            <img src="/logo.png" alt="Lucide Lab Logo" className="w-16 h-16 object-contain" />
+            <div className="flex flex-col items-center">
+              <span className="text-xl font-bold font-display tracking-tight hidden sm:block">
+                Lucide Lab
+              </span>
+              <span className="text-sm text-secondary hidden sm:block text-center">
+                A laboratory for beautifully designed icons with experimental use cases.
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center gap-4">

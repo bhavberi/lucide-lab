@@ -190,6 +190,7 @@ input {
 .text-3xl { font-size: 1.875rem; }
 .text-5xl { font-size: 3rem; }
 .text-7xl { font-size: 4.5rem; }
+.text-center { text-align: center; }
 
 .font-medium { font-weight: 500; }
 .font-bold { font-weight: 700; }
