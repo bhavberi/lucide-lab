@@ -41,7 +41,7 @@ import { atSignCircle } from '@lucide/lab';
 
 @NgModule({
   imports: [
-    LucideAngularModule.pick({ atSignCircle })
+    LucideAngularModule.pick({ AtSignCircle: atSignCircle })
   ],
 })
 
