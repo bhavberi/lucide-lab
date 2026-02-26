@@ -14,6 +14,8 @@ yarn add @lucide/lab
 pnpm install @lucide/lab
 ```
 
+_Note_: Requires Lucide core package to be installed in your project. For more info visit [lucide installation guide](https://lucide.dev/guide/installation).
+
 ## Usage
 
 ### React
