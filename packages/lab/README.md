@@ -38,7 +38,7 @@ function App() {
 ```vue
 <script setup>
 import { burger } from '@lucide/lab';
-import {  } from 'lucide-vue-next';
+import { Icon } from 'lucide-vue-next';
 </script>
 
 <template>
