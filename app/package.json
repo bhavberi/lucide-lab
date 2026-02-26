@@ -8,7 +8,8 @@
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs",
     "prebuild:writeIconNodes": "bun ./scripts/writeIconNodes.ts",
-    "prebuild:writeIconMetaIndex": "bun ./scripts/writeIconMetaIndex.ts"
+    "prebuild:writeIconMetaIndex": "bun ./scripts/writeIconMetaIndex.ts",
+    "vercel-build": "pnpm run build"
   },
   "dependencies": {
     "react": "^18.2.0",
