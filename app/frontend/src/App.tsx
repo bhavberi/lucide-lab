@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo, Fragment } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Moon, Sun, Download, Copy, Check, X, ChevronDown, Filter } from 'lucide-react';
+import { Search, Moon, Sun, Download, Copy, Check, X, ChevronDown, Filter, Code } from 'lucide-react';
+// Import the code examples file as raw text so we can parse it into tabs
+// @ts-ignore: Vite raw import
+import codesRaw from '../code.txt?raw';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -145,6 +148,31 @@ export default function App() {
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [showCategories, setShowCategories] = useState(false);
+    const [selectedSnippet, setSelectedSnippet] = useState<string | null>(null);
+
+    // Parse `code.txt` which contains multiple framework snippets separated by lines starting with `# Framework`
+    const snippets = useMemo(() => {
+        const lines = codesRaw.split(/\r?\n/);
+        const map: Record<string, string[]> = {};
+        let current: string | null = null;
+
+        for (const line of lines) {
+            const m = line.match(/^#\s*(.+)$/);
+            if (m) {
+                const key = m[1].trim();
+                current = key;
+                map[key] = [];
+                continue;
+            }
+            if (current) map[current].push(line);
+        }
+
+        return Object.entries(map).map(([k, v]) => ({ name: k, code: v.join('\n') }));
+    }, [codesRaw]);
+
+    useEffect(() => {
+        if (snippets.length && !selectedSnippet) setSelectedSnippet(snippets[0].name);
+    }, [snippets, selectedSnippet]);
 
     useEffect(() => {
         // Detect system preference
@@ -279,6 +307,68 @@ export default function App() {
                         A laboratory for beautifully designed icons with experimental use cases. Part of the
                         Lucide family, built by the community.
                     </p>
+                </div>
+
+                {/* How to use + Code examples */}
+                <div className="mb-8">
+                    <div className="px-6 py-6 rounded-2xl border border-border-color bg-bg-primary mb-4">
+                        <div className="flex items-center gap-3">
+                            <Code size={20} />
+                            <h2 className="text-lg font-semibold">How to use</h2>
+                        </div>
+                        <p className="text-sm text-secondary mt-2">
+                            Use the snippets below to quickly import and use Lucide Lab icons in your
+                            project. Select a framework tab to see the example and copy it to your clipboard.
+                        </p>
+                    </div>
+
+                    <div className="relative rounded-2xl border border-border-color bg-secondary overflow-hidden">
+                        <div className="flex items-center justify-between px-4 py-2 border-b border-border-color">
+                            <div className="flex gap-2 overflow-x-auto">
+                                {snippets.map((s) => (
+                                    <button
+                                        key={s.name}
+                                        onClick={() => setSelectedSnippet(s.name)}
+                                        className={cn(
+                                            'px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap',
+                                            selectedSnippet === s.name
+                                                ? 'bg-accent-color text-white shadow-sm'
+                                                : 'text-secondary hover:text-primary'
+                                        )}
+                                    >
+                                        {s.name}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={async () => {
+                                        const active = snippets.find((x) => x.name === selectedSnippet);
+                                        if (!active) return;
+                                        try {
+                                            await navigator.clipboard.writeText(active.code);
+                                            setToast({ message: `${active.name} snippet copied`, title: 'Copied' });
+                                        } catch (err) {
+                                            console.error('Copy failed', err);
+                                            setToast({ message: `${active.name} snippet (copy failed)`, title: 'Copy Error' });
+                                        }
+                                        setTimeout(() => setToast(null), 2200);
+                                    }}
+                                    className="px-4 py-2 rounded-md bg-bg-primary border border-border-color text-secondary hover:text-primary transition-colors flex items-center gap-2"
+                                    aria-label="Copy code"
+                                >
+                                    <Copy size={16} /> Copy
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="p-4">
+                            <pre className="whitespace-pre-wrap max-h-64 overflow-auto text-sm font-mono text-secondary">
+                                {snippets.find((x) => x.name === selectedSnippet)?.code || ''}
+                            </pre>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Grid */}
